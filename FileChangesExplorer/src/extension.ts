@@ -2,39 +2,45 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import { FilesChangesProvider } from "./tree";
+import { getChangedFilesDetails } from "./utils";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-  const workspaceRoot =
-    vscode.workspace.workspaceFolders &&
-    vscode.workspace.workspaceFolders.length > 0
-      ? vscode.workspace.workspaceFolders[0].uri.fsPath
-      : "";
-  const filesChangesProvider = new FilesChangesProvider(workspaceRoot);
-  vscode.window.registerTreeDataProvider("changesView", filesChangesProvider);
+export async function activate(context: vscode.ExtensionContext) {
+  vscode.window.showInformationMessage("Hi there");
+  let fileChangesInfo = await getChangedFilesDetails();
+  fileChangesInfo = [
+    {
+      filePath: "server/server.js",
+      changes: [
+        {
+          startLine: 1,
+          endLine: 1,
+        },
+      ],
+    },
+  ];
+  console.log(fileChangesInfo);
+  vscode.window.showInformationMessage(JSON.stringify(fileChangesInfo));
+  const filesChangesProvider = new FilesChangesProvider(fileChangesInfo);
+
+  vscode.window.registerTreeDataProvider(
+    "filesChangesView",
+    filesChangesProvider
+  );
+
   vscode.commands.registerCommand(
-    "my-changes-view.openFileAtLine",
+    "filechanges.openFileAtLine",
     (file: string, line: number) => {
       openFileAtLine(file, line);
     }
   );
 
-  vscode.commands.registerCommand("my-changes-view.refresh", () => {
-    // filesChangesProvider.refresh();
-  });
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
-    "filechangesexplorerbysanik.helloWorld",
-    () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage(
-        "Hello World from FileChangesExplorer!"
-      );
+    "filechanges.refresh",
+    async () => {
+      const fileChangesInfo = await getChangedFilesDetails();
+      filesChangesProvider.refresh(fileChangesInfo);
     }
   );
 

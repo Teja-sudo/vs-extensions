@@ -1,7 +1,7 @@
 {
   "name": "filechangesexplorerbysanik",
   "displayName": "FileChangesExplorer",
-  "description": "Displays the line numbers of a file changes",
+  "description": "Displays the line numbers of modified files",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.89.0"
@@ -9,23 +9,48 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onView:file-changes-explorer"
+  ],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "filechanges.openFileAtLine",
+        "title": "Open File at Line"
+      },
+      {
+        "command": "filechanges.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "filechanges.refresh",
+          "when": "view == filesChangesView",
+          "group": "navigation"
+        }
+      ]
+    },
     "viewsContainers": {
       "activitybar": [
         {
           "id": "file-changes-explorer",
           "title": "File Changes Explorer",
-          "icon": "resources/file-explore.svg"
+          "icon": "resources/light/main.svg"
         }
       ]
     },
     "views": {
       "file-changes-explorer": [
         {
-          "id": "file-changes-line-numbers",
-          "name": "Line numbers"
+          "id": "filesChangesView",
+          "name": "File Changes"
         }
       ]
     }
