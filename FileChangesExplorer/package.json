@@ -32,7 +32,7 @@
       "view/title": [
         {
           "command": "filechanges.refresh",
-          "when": "view == filesChangesView",
+          "when": "view == filechanges",
           "group": "navigation"
         }
       ]
@@ -49,7 +49,7 @@
     "views": {
       "file-changes-explorer": [
         {
-          "id": "filesChangesView",
+          "id": "filechanges",
           "name": "File Changes"
         }
       ]
