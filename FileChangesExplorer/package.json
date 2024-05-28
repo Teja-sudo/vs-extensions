@@ -2,10 +2,10 @@
   "name": "filechangesexplorerbysanik",
   "displayName": "FileChangesExplorer",
   "description": "Displays the line numbers of modified files",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "TejaSanik",
   "engines": {
-    "vscode": "^1.89.0"
+    "vscode": "^1.70.0"
   },
   "categories": [
     "Other"
