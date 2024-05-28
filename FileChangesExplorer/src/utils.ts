@@ -1,8 +1,5 @@
 import * as vscode from "vscode";
-import { exec } from "child_process";
-import { promisify } from "util";
-
-const execAsync = promisify(exec);
+import { spawn } from "child_process";
 
 export interface FileChange {
   filePath: string;
@@ -18,23 +15,34 @@ export async function getChangedFilesDetails(): Promise<FileChange[]> {
   }
 
   const workspaceRoot = workspaceFolders[0].uri.fsPath;
-  try {
-    const { stdout } = await execAsync("git diff --unified=0", {
+  return new Promise((resolve, reject) => {
+    const gitDiff = spawn("git", ["diff", "--unified=0"], {
       cwd: workspaceRoot,
     });
-    return parseGitDiff(stdout);
-  } catch (error) {
-    if (error instanceof Error) {
-      vscode.window.showErrorMessage(`Failed to get changes: ${error.message}`);
-    } else {
-      vscode.window.showErrorMessage("Failed to get changes: Unknown error");
-    }
 
-    return [];
-  }
+    let stdout = "";
+    let stderr = "";
+
+    gitDiff.stdout.on("data", (data) => {
+      stdout += data.toString();
+    });
+
+    gitDiff.stderr.on("data", (data) => {
+      stderr += data.toString();
+    });
+
+    gitDiff.on("close", (code) => {
+      if (code !== 0) {
+        vscode.window.showErrorMessage(`Failed to get changes: ${stderr}`);
+        reject(new Error(`git diff process exited with code ${code}`));
+      } else {
+        resolve(parseGitDiff(stdout, workspaceRoot));
+      }
+    });
+  });
 }
 
-function parseGitDiff(diffOutput: string): FileChange[] {
+function parseGitDiff(diffOutput: string, workspaceRoot: string): FileChange[] {
   const fileChanges: FileChange[] = [];
   const fileDiffs = diffOutput.split(/^diff --git a\/.* b\/.*$/gm).slice(1);
 
@@ -45,7 +53,8 @@ function parseGitDiff(diffOutput: string): FileChange[] {
       continue;
     }
 
-    const filePath = filePathLine.replace("--- a/", "");
+    const relativeFilePath = filePathLine.replace("--- a/", "");
+    const absoluteFilePath = `${workspaceRoot}/${relativeFilePath}`;
     const changes: { startLine: number; endLine: number }[] = [];
 
     const hunkHeaders = lines.filter((line) => line.startsWith("@@ "));
@@ -59,7 +68,7 @@ function parseGitDiff(diffOutput: string): FileChange[] {
       }
     }
 
-    fileChanges.push({ filePath, changes });
+    fileChanges.push({ filePath: absoluteFilePath, changes });
   }
 
   return fileChanges;

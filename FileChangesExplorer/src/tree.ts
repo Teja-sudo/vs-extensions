@@ -48,7 +48,7 @@ export class FilesChangesProvider
                 `Line ${startLine}-${endLine}`,
                 vscode.TreeItemCollapsibleState.None,
                 {
-                  command: "filechanges.openFileAtLine",
+                  command: "filechangesexplorer.openFileAtLine",
                   title: "",
                   arguments: [currentFileInfo?.filePath, startLine],
                 }

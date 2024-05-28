@@ -8,36 +8,23 @@ import { getChangedFilesDetails } from "./utils";
 // Your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
   vscode.window.showInformationMessage("Hi there");
-  let fileChangesInfo = await getChangedFilesDetails();
-  fileChangesInfo = [
-    {
-      filePath: "server/server.js",
-      changes: [
-        {
-          startLine: 1,
-          endLine: 1,
-        },
-      ],
-    },
-  ];
-  console.log(fileChangesInfo);
-  vscode.window.showInformationMessage(JSON.stringify(fileChangesInfo));
+  const fileChangesInfo = await getChangedFilesDetails();
   const filesChangesProvider = new FilesChangesProvider(fileChangesInfo);
 
   vscode.window.registerTreeDataProvider(
-    "filesChangesView",
+    "filechangesexplorer",
     filesChangesProvider
   );
 
   vscode.commands.registerCommand(
-    "filechanges.openFileAtLine",
+    "filechangesexplorer.openFileAtLine",
     (file: string, line: number) => {
       openFileAtLine(file, line);
     }
   );
 
   let disposable = vscode.commands.registerCommand(
-    "filechanges.refresh",
+    "filechangesexplorer.refresh",
     async () => {
       const fileChangesInfo = await getChangedFilesDetails();
       filesChangesProvider.refresh(fileChangesInfo);
@@ -48,11 +35,22 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 async function openFileAtLine(file: string, line: number) {
-  const document = await vscode.workspace.openTextDocument(file);
-  const editor = await vscode.window.showTextDocument(document);
-  const position = new vscode.Position(line - 1, 0);
-  editor.selection = new vscode.Selection(position, position);
-  editor.revealRange(new vscode.Range(position, position));
+  try {
+    const document = await vscode.workspace.openTextDocument(file);
+    const editor = await vscode.window.showTextDocument(document);
+    const position = new vscode.Position(line - 1, 0);
+
+    editor.selection = new vscode.Selection(position, position);
+    editor.revealRange(new vscode.Range(position, position));
+  } catch (error) {
+    if (error instanceof Error) {
+      vscode.window.showErrorMessage(
+        `File ${file} cannot be opened due to an error ${error.message}.`
+      );
+    } else {
+      vscode.window.showErrorMessage(`File ${file} cannot be opened.`);
+    }
+  }
 }
 
 // This method is called when your extension is deactivated

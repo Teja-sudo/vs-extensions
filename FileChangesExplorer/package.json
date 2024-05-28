@@ -10,17 +10,13 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:file-changes-explorer"
+    "onView: filechangesexplorer"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "filechanges.openFileAtLine",
-        "title": "Open File at Line"
-      },
-      {
-        "command": "filechanges.refresh",
+        "command": "filechangesexplorer.refresh",
         "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",
@@ -31,8 +27,7 @@
     "menus": {
       "view/title": [
         {
-          "command": "filechanges.refresh",
-          "when": "view == filechanges",
+          "command": "filechangesexplorer.refresh",
           "group": "navigation"
         }
       ]
@@ -40,16 +35,16 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "file-changes-explorer",
+          "id": "filechangesexplorer",
           "title": "File Changes Explorer",
           "icon": "resources/light/main.svg"
         }
       ]
     },
     "views": {
-      "file-changes-explorer": [
+      "filechangesexplorer": [
         {
-          "id": "filechanges",
+          "id": "filechangesexplorer",
           "name": "File Changes"
         }
       ]
