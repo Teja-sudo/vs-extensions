@@ -3,6 +3,7 @@
   "displayName": "FileChangesExplorer",
   "description": "Displays the line numbers of modified files",
   "version": "0.0.1",
+  "publisher": "TejaSanik",
   "engines": {
     "vscode": "^1.89.0"
   },

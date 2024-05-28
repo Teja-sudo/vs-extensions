@@ -1,71 +1,87 @@
-# filechangesexplorerbysanik README
+# FileChangesExplorer Extension
 
-This is the README for your extension "filechangesexplorerbysanik". After writing up a brief description, we recommend including the following sections.
+## Overview
+
+The **FileChangesExplorer** extension helps you track changes in your workspace files by displaying line numbers of modified files in a tree view. It integrates with Git to show the changes in your files and provides a convenient way to navigate to those changes.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- **View Modified Files**: See a list of all modified files in your workspace along with the specific line numbers that have changed.
+- **Navigate to Changes**: Click on any line number to directly navigate to the corresponding line in the file.
+- **Refresh Functionality**: Easily refresh the list to see the latest changes.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- **Visual Studio Code**: Version 1.89.0 or higher.
+- **Git**: Must be installed and available in your system's PATH.
+
+## Installation
+
+1. Open Visual Studio Code.
+2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or by pressing `Ctrl+Shift+X`.
+3. Search for `FileChangesExplorer`.
+4. Click `Install` on the `FileChangesExplorer` extension.
+
+## Usage
+
+### Activating the Extension
+
+To activate the extension, open the "File Changes Explorer" view from the Activity Bar.
+
+### Viewing Modified Files
+
+1. Open the "File Changes Explorer" view from the Activity Bar.
+2. The extension will automatically list all the modified files and their line numbers.
+
+### Navigating to Changes
+
+Click on any line number under a modified file to open that file and navigate to the specific line where the change occurred.
+
+### Refreshing the List
+
+Click on the `Refresh` button in the "File Changes Explorer" view title to update the list of modified files and their line numbers.
+
+## Commands
+
+- **Refresh**: Refreshes the list of modified files.
+  - Command ID: `filechangesexplorer.refresh`
+  - Available from the "File Changes Explorer" view title.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This extension does not contribute any settings currently.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- The extension requires a Git repository to be initialized in the workspace. If no Git repository is found, an error message will be displayed.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
+- Initial release of FileChangesExplorer.
+  - Display modified files and their line numbers.
+  - Navigate to changes by clicking on line numbers.
+  - Refresh functionality to update the list.
 
-Initial release of ...
+## FAQ
 
-### 1.0.1
+### How do I activate the extension?
 
-Fixed issue #.
+The extension is activated when you open the "File Changes Explorer" view from the Activity Bar.
 
-### 1.1.0
+### Why can't I see any changes?
 
-Added features X, Y, and Z.
+Ensure that your workspace is a Git repository. The extension requires a Git repository to function. If no Git repository is found, an error message will be displayed.
 
----
+### How do I navigate to a specific change?
 
-## Following extension guidelines
+Click on any line number under a modified file in the "File Changes Explorer" view to open the file and navigate to the specific line where the change occurred.
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+### How do I refresh the list of changes?
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+Click on the `Refresh` button in the "File Changes Explorer" view title to update the list of modified files and their line numbers.
 
-## Working with Markdown
+## Support
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+If you encounter any issues or have questions, you can reach out for support through the extension's [GitHub repository](https://github.com/your-repo-url) by creating an issue or a pull request.
