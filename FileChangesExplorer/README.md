@@ -81,7 +81,3 @@ Click on any line number under a modified file in the "File Changes Explorer" vi
 ### How do I refresh the list of changes?
 
 Click on the `Refresh` button in the "File Changes Explorer" view title to update the list of modified files and their line numbers.
-
-## Support
-
-If you encounter any issues or have questions, you can reach out for support through the extension's [GitHub repository](https://github.com/your-repo-url) by creating an issue or a pull request.
