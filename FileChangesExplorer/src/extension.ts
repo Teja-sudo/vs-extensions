@@ -7,7 +7,6 @@ import { getChangedFilesDetails } from "./utils";
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
-  vscode.window.showInformationMessage("Hi there");
   const fileChangesInfo = await getChangedFilesDetails();
   const filesChangesProvider = new FilesChangesProvider(fileChangesInfo);
 
