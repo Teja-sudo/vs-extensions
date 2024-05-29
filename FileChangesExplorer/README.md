@@ -12,7 +12,7 @@ The **FileChangesExplorer** extension helps you track changes in your workspace 
 
 ## Requirements
 
-- **Visual Studio Code**: Version 1.89.0 or higher.
+- **Visual Studio Code**: Version 1.70.0 or higher.
 - **Git**: Must be installed and available in your system's PATH.
 
 ## Installation
@@ -67,7 +67,7 @@ This extension does not contribute any settings currently.
 
 ### 0.1.0
 
-- Decreased vscode version compatibility.
+- Decreased vscode version compatibility to v1.70.0.
 - Fixed filechangesexplorer refresh button appearing on all the title bars of vscode.
 - Added auto refresh whenever changes in any file is saved.
 
