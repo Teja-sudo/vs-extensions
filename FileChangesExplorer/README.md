@@ -60,9 +60,16 @@ This extension does not contribute any settings currently.
 ### 0.0.1
 
 - Initial release of FileChangesExplorer.
+
   - Display modified files and their line numbers.
   - Navigate to changes by clicking on line numbers.
   - Refresh functionality to update the list.
+
+### 0.1.0
+
+- Decreased vscode version compatibility.
+- Fixed filechangesexplorer refresh button appearing on all the title bars of vscode.
+- Added auto refresh whenever changes in any file is saved.
 
 ## FAQ
 
