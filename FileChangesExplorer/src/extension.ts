@@ -9,20 +9,29 @@ import { getChangedFilesDetails } from "./utils";
 export async function activate(context: vscode.ExtensionContext) {
   const fileChangesInfo = await getChangedFilesDetails();
   const filesChangesProvider = new FilesChangesProvider(fileChangesInfo);
+  let saveFileTimerId: string | number | NodeJS.Timeout | undefined;
 
   vscode.window.registerTreeDataProvider(
     "filechangesexplorer",
     filesChangesProvider
   );
 
-  vscode.commands.registerCommand(
+  const openFileCommand = vscode.commands.registerCommand(
     "filechangesexplorer.openFileAtLine",
     (file: string, line: number) => {
       openFileAtLine(file, line);
     }
   );
 
-  let disposable = vscode.commands.registerCommand(
+  const onSaveCleaner = vscode.workspace.onDidSaveTextDocument(() => {
+    clearTimeout(saveFileTimerId);
+    saveFileTimerId = setTimeout(async () => {
+      const fileChangesInfo = await getChangedFilesDetails();
+      filesChangesProvider.refresh(fileChangesInfo);
+    }, 0.2);
+  });
+
+  const refreshCommand = vscode.commands.registerCommand(
     "filechangesexplorer.refresh",
     async () => {
       const fileChangesInfo = await getChangedFilesDetails();
@@ -30,7 +39,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(openFileCommand, refreshCommand, onSaveCleaner);
 }
 
 async function openFileAtLine(file: string, line: number) {
