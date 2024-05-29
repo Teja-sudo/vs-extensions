@@ -29,6 +29,7 @@
       "view/title": [
         {
           "command": "filechangesexplorer.refresh",
+          "when": "view == filechangesexplorer",
           "group": "navigation"
         }
       ]
