@@ -65,7 +65,7 @@ This extension does not contribute any settings currently.
   - Navigate to changes by clicking on line numbers.
   - Refresh functionality to update the list.
 
-### 0.1.0
+### 1.0.0
 
 - Decreased vscode version compatibility to v1.70.0.
 - Fixed filechangesexplorer refresh button appearing on all the title bars of vscode.
