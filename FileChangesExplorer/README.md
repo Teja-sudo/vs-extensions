@@ -71,6 +71,12 @@ This extension does not contribute any settings currently.
 - Fixed filechangesexplorer refresh button appearing on all the title bars of vscode.
 - Added auto refresh whenever changes in any file is saved.
 
+#### 1.1.0
+
+- Displays all the modified and saved files that are both staged and unstaged
+- Added Staged and Unstaged tags to the file names
+- Display the files in diff editior
+
 ## FAQ
 
 ### How do I activate the extension?
